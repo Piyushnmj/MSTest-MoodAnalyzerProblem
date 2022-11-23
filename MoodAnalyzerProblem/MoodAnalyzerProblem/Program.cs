@@ -22,7 +22,11 @@
             {
                 return "SAD";
             }
-            return String.Empty;
+            else
+            {
+                return "HAPPY";
+            }
+            //return String.Empty;
         }
     }
 }
