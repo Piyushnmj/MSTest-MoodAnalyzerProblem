@@ -31,13 +31,13 @@ namespace TestCases
             Assert.AreEqual("Happy".ToUpper(), result); //Assert
         }
         [TestMethod]
-        public void GivenNull()
+        public void GivenNull_ReturnHappy()
         {
             MoodAnalyzerProblem.MoodAnalyzer objMood = new MoodAnalyzerProblem.MoodAnalyzer(null); // Arrange
 
             string result = objMood.AnalyzeMood(); // Act
 
-            Assert.IsNull(result); //Assert
+            Assert.AreEqual("Happy".ToUpper(), result); //Assert
         }
     }
 }

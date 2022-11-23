@@ -43,7 +43,7 @@
             }
             catch (Exception ex)
             {
-                return null;
+                return "HAPPY";
             } 
         }
     }
