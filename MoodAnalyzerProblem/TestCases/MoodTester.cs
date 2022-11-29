@@ -1,3 +1,5 @@
+using MoodAnalyzerProblem;
+
 namespace TestCases
 {
     [TestClass]
