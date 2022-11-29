@@ -41,5 +41,23 @@ namespace TestCases
 
             Assert.AreEqual("Happy".ToUpper(), result); //Assert
         }
+        [TestMethod]
+        public void CustomExceptions_GivenNull_ThrowNull()
+        {
+            MoodAnalyzerProblem.MoodAnalyzer objMood = new MoodAnalyzerProblem.MoodAnalyzer(null); // Arrange
+
+            string result = objMood.AnalyzeMood(); // Act
+
+            Assert.AreEqual(MoodAnalysisErrors.Null.ToString(), result); //Assert
+        }
+        [TestMethod]
+        public void CustomExceptions_GivenEmpty_ThrowEmpty()
+        {
+            MoodAnalyzerProblem.MoodAnalyzer objMood = new MoodAnalyzerProblem.MoodAnalyzer(" "); // Arrange
+
+            string result = objMood.AnalyzeMood(); // Act
+
+            Assert.AreEqual(MoodAnalysisErrors.Empty.ToString(), result); //Assert
+        }
     }
 }
