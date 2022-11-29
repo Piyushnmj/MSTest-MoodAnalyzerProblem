@@ -59,4 +59,13 @@ namespace MoodAnalyzerProblem
         Null,
         Empty
     }
+
+    public class MoodAnalyzerFactory
+    {
+        public static Type CreateInstance(string className)
+        {
+            Type type = Type.GetType(className);
+            return type;
+        }
+    }
 }
