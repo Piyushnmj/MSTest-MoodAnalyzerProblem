@@ -67,10 +67,6 @@ namespace MoodAnalyzerProblem
 
     public class MoodAnalyzerFactory
     {
-        public MoodAnalyzerFactory()
-        {
-
-        }
 
         public static object CreateInstance(string className, [Optional]string constructorName)
         {
