@@ -126,5 +126,30 @@ namespace MoodAnalyzerProblem
                 return ex.Message;
             }
         }
+
+        public static string InvokeMethod(string methodName, string message)
+        {
+            MoodAnalyzerFactory objFactory = new MoodAnalyzerFactory();
+            Type type = typeof(MoodAnalyzer);
+            try
+            {
+                if(type.Name != methodName)
+                {
+                    throw new MoodAnalysisExceptions(MoodAnalysisErrors.NO_SUCH_METHOD.ToString());
+                }
+                else
+                {
+                    object methodObject = MoodAnalyzerFactory.CreateInstanceParameterConstructor("MoodAnalyzerProblem.MoodAnalyzer", "MoodAnalyzer", message);
+                    MethodInfo methodInfo = type.GetMethod(methodName);
+                    string method = (string)methodInfo.Invoke(methodObject, null);
+                    return method;
+                }
+            }
+            catch (MoodAnalysisExceptions ex)
+            {
+                return ex.Message;
+            }
+            
+        }
     }
 }
