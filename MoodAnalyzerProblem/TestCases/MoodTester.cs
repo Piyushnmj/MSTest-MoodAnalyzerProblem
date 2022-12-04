@@ -154,7 +154,7 @@ namespace TestCases
         public void ChangeMoodDynamically_GivenImproperField_ReturnException()
         {
             string expected = MoodAnalysisErrors.NO_SUCH_FIELD.ToString();
-            string actual = MoodAnalyzerFactory.ChangeMoodDynamically("message", MoodAnalysisErrors.NO_SUCH_FIELD.ToString());
+            string actual = MoodAnalyzerFactory.ChangeMoodDynamically("messageWrong", MoodAnalysisErrors.NO_SUCH_FIELD.ToString());
             Assert.AreEqual(expected, actual);
         }
 
@@ -162,7 +162,7 @@ namespace TestCases
         public void ChangeMoodDynamically_GivenNull_ReturnNull()
         {
             string expected = MoodAnalysisErrors.Null.ToString();
-            string actual = MoodAnalyzerFactory.ChangeMoodDynamically("message", MoodAnalysisErrors.Null.ToString());
+            string actual = MoodAnalyzerFactory.ChangeMoodDynamically("message", null);
             Assert.AreEqual(expected, actual);
         }
     }
