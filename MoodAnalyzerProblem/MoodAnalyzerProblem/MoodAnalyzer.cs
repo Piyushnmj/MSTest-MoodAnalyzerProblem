@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Reflection.Metadata.Ecma335;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ namespace MoodAnalyzerProblem
     public class MoodAnalyzer
     {
         //string message = string.Empty;
-        public string message { get; set; }
+        public string message;
 
         public MoodAnalyzer()
         {
@@ -62,13 +63,14 @@ namespace MoodAnalyzerProblem
         Null,
         Empty,
         NO_SUCH_CLASS,
-        NO_SUCH_METHOD
+        NO_SUCH_METHOD,
+        NO_SUCH_CONSTRUCTOR
     }
 
     public class MoodAnalyzerFactory
     {
 
-        public static object CreateInstance(string className, [Optional]string constructorName)
+        public static object CreateInstance(string className, [Optional] string constructorName)
         {
             try
             {
@@ -81,20 +83,43 @@ namespace MoodAnalyzerProblem
                 {
                     bool exists = false;
                     var constructors = type.GetConstructors();
-                    foreach ( var constructor in constructors )
+                    foreach (var constructor in constructors)
                     {
-                        if ( constructor.ToString() == constructorName )
+                        if (constructor.ToString() == constructorName)
                         {
                             exists = true;
                             continue;
                         }
                     }
-                    if (!exists )
+                    if (!exists)
                     {
                         throw new MoodAnalysisExceptions(MoodAnalysisErrors.NO_SUCH_METHOD.ToString());
                     }
                 }
                 return type;
+            }
+            catch (MoodAnalysisExceptions ex)
+            {
+                return ex.Message;
+            }
+        }
+
+        public static object CreateInstanceParameterConstructor(string className, string constructorName, string message)
+        {
+            Type type = Type.GetType(className);
+            try
+            {
+                if (type == null)
+                {
+                    throw new MoodAnalysisExceptions(MoodAnalysisErrors.NO_SUCH_CLASS.ToString());
+                }
+                if (type.Name != constructorName)
+                {
+                    throw new MoodAnalysisExceptions(MoodAnalysisErrors.NO_SUCH_CONSTRUCTOR.ToString());
+                }
+                ConstructorInfo ctor = type.GetConstructor(new[] { typeof(string) });
+                object instance = ctor.Invoke(new object[] { message });
+                return instance;
             }
             catch (MoodAnalysisExceptions ex)
             {
