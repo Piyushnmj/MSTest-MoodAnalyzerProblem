@@ -12,7 +12,7 @@ namespace MoodAnalyzerProblem
     public class MoodAnalyzer
     {
         //string message = string.Empty;
-        public string message;
+        public string message { get; set; }
 
         public MoodAnalyzer()
         {
@@ -64,7 +64,8 @@ namespace MoodAnalyzerProblem
         Empty,
         NO_SUCH_CLASS,
         NO_SUCH_METHOD,
-        NO_SUCH_CONSTRUCTOR
+        NO_SUCH_CONSTRUCTOR,
+        NO_SUCH_FIELD
     }
 
     public class MoodAnalyzerFactory
@@ -145,7 +146,30 @@ namespace MoodAnalyzerProblem
             {
                 return ex.Message;
             }
+        }
 
+        public static string ChangeMoodDynamically(string variableName, string setValue)
+        {
+            MoodAnalyzer objMood = new MoodAnalyzer();
+            Type type = typeof(MoodAnalyzerProblem.MoodAnalyzer);
+            try
+            {
+                PropertyInfo propertyInfo = type.GetProperty("message");
+                propertyInfo.SetValue(objMood, setValue);
+                if (setValue == null)
+                {
+                    throw new MoodAnalysisExceptions(MoodAnalysisErrors.Null.ToString());
+                }
+                if (propertyInfo == null)
+                {
+                    throw new MoodAnalysisExceptions(MoodAnalysisErrors.NO_SUCH_FIELD.ToString());
+                }
+                return objMood.message;
+            }
+            catch (MoodAnalysisExceptions ex)
+            {
+                return ex.Message;
+            }
         }
     }
 }

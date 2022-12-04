@@ -141,5 +141,29 @@ namespace TestCases
             string actual = MoodAnalyzerFactory.InvokeMethod("Analyze", MoodAnalysisErrors.NO_SUCH_METHOD.ToString());
             Assert.AreEqual(expected, actual);
         }
+
+        [TestMethod]
+        public void ChangeMoodDynamically_GivenHappy_ReturnHappy()
+        {
+            string expected = "HAPPY";
+            string actual = MoodAnalyzerFactory.ChangeMoodDynamically("message", "HAPPY");
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void ChangeMoodDynamically_GivenImproperField_ReturnException()
+        {
+            string expected = MoodAnalysisErrors.NO_SUCH_FIELD.ToString();
+            string actual = MoodAnalyzerFactory.ChangeMoodDynamically("message", MoodAnalysisErrors.NO_SUCH_FIELD.ToString());
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void ChangeMoodDynamically_GivenNull_ReturnNull()
+        {
+            string expected = MoodAnalysisErrors.Null.ToString();
+            string actual = MoodAnalyzerFactory.ChangeMoodDynamically("message", MoodAnalysisErrors.Null.ToString());
+            Assert.AreEqual(expected, actual);
+        }
     }
 }
